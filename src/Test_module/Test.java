@@ -14,17 +14,18 @@ public class Test {
 	public static void main(String[] args) {
 		
 		
-		String inputFile = "C:/Users/ddd/Desktop/test.pcap",outFile = "C:/Users/ddd/Desktop/test.txt";
+		String inputFile = "C:/Users/ddd/Desktop/tcp.pcap",outFile = "C:/Users/ddd/Desktop/test.txt";
 		File f1 = new File(inputFile);
 		File f2 = new File(outFile);
 		pcapParse pcap = new pcapParse(f1,f2);
 		System.out.println(pcap.parse());   //½âÎö
 		
 		ArrayList<String> packages = pcap.simplified_packages;
-		for(int i=0;i<packages.size();i++) {
-			String t=packages.get(i);
-			System.out.println(t);
-		}
+		
+		TcpFlood ip = new TcpFlood(packages);ip.show();
+		
+		//portScan port = new portScan(packages);port.show();
+		
 		/*
 		Filter FilterModule = new Filter(0.5);
 		CBF CBFModule = new CBF();

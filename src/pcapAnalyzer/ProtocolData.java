@@ -16,6 +16,8 @@ public class ProtocolData {
 	short dateLength;										// data长度
 	
 	byte protocolType;		// 协议类型
+	
+	boolean syn;            // 是否为syn    
 
 	public String getSrcIP() {
 		return srcIP;
@@ -66,6 +68,14 @@ public class ProtocolData {
 	public void setProtocolType(byte protocolType) {
 		this.protocolType = protocolType;
 	}
+	
+	public boolean getSyn() {
+		return syn;
+	}
+
+	public void setSyn(boolean syn) {
+		this.syn = syn;
+	}
 
 	public ProtocolData() {
 		// TODO Auto-generated constructor stub
@@ -87,7 +97,8 @@ public class ProtocolData {
 				+ "," + protocolType
 				+ "," + dateLength
 				+ "," + srcPort
-				+ "," + desPort;
-	}
+				+ "," + desPort
+				+ "," + syn;
+		}
 
 }

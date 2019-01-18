@@ -154,6 +154,7 @@ public class pcapParse {
 		protocolData.setSrcPort((short)0);
 		protocolData.setDesPort((short)0);
 		protocolData.setDateLength((short)(ipHeader.getTotalLen() - 20));
+		protocolData.setSyn(false);
 		
 		byte[] buff_src = new byte[4];
 		byte[] buff_dst = new byte[4];
@@ -174,7 +175,11 @@ public class pcapParse {
 				protocolData.setDateLength((short)(ipHeader.getTotalLen() -20-8));
 			}
 			else {
-				protocolData.setDateLength((short)(ipHeader.getTotalLen() -20-32));
+				byte syn = content[offset+13];
+				byte[] headlength = new byte[2];headlength[0] = 0;headlength[1] = content[offset+12];
+				if(syn == 2 || syn == 17) protocolData.setSyn(true);
+				short len = DataUtils.byteArrayToShort(headlength);
+				protocolData.setDateLength((short)(ipHeader.getTotalLen() -20- len/4));
 			}
 		}
 		return ip;
